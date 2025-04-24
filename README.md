@@ -16,7 +16,7 @@ For this project, the following tickers (symbols) of financial instruments relat
 The historical data downloaded covers the following time period:
 
 - **Start Date**: 2015-04-20
-- **End Date**: 2023-04-20
+- **End Date**: 2025-04-20
 
 ### Data Source
 
