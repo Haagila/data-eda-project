@@ -5,8 +5,8 @@ import pandas as pd
 tickers = ['NVDA', 'MSFT', 'GOOGL', 'BOTZ', 'ARKQ']
 
 # Para el análisis, me enfoco en un periodo de 10 años
-start_date = '2013-01-01'
-end_date = '2023-01-01'
+start_date = '2015-04-20'
+end_date = '2025-04-20'
 
 # Descargar los datos históricos de los tickers
 data = yf.download(tickers, start=start_date, end=end_date)
