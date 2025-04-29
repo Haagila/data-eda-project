@@ -2,17 +2,17 @@
 
 ## Resumen del Proyecto
 
-El objetivo de este proyecto es realizar un Análisis Exploratorio de Datos (EDA) detallado sobre un conjunto selecto de activos financieros relacionados con el sector de la **Inteligencia Artificial (IA)** y la tecnología. A través del análisis de datos históricos de precios y volumen, utilizando herramientas estadísticas y de visualización en Python, buscamos identificar patrones clave, tendencias, características de riesgo (volatilidad) y las relaciones (correlaciones) entre estos activos. Este análisis sienta las bases para posibles proyectos futuros, como el análisis de indicadores técnicos, backtesting de estrategias y análisis de sentimiento.
+El objetivo de este proyecto es realizar un Análisis Exploratorio de Datos (EDA) detallado sobre un conjunto selecto de activos financieros relacionados con el sector de la **Inteligencia Artificial (IA)** y la tecnología. Considero que mediante el análisis de datos históricos de precios y volumen, utilizando herramientas estadísticas y de visualización en Python, se puede identificar patrones clave, tendencias, características de riesgo (volatilidad) y las relaciones (correlaciones) entre estos activos. Lo cual es una introducción interesante para este mercado. 
 
 ---
 
 ## Adquisición de Datos
 
-Esta sección describe el origen y el proceso inicial para obtener los datos financieros utilizados en el análisis.
+Los datos se obtuvieron desde **Yahoo Finance**, los cuales se pueden derivar mediante la librería *yfinance* hacia distintos scripts de Python, en donde se transforman a diferentes formas de información. 
 
 ### Activos Seleccionados
 
-Se seleccionaron los siguientes tickers (símbolos de cotización) que representan a empresas líderes y fondos temáticos dentro del sector de la Inteligencia Artificial y la robótica:
+Previamente, investigué de manera cualitativa por su impacto mediático a los siguientes tickers (conocidos también como símbolos de cotización) que representan a empresas líderes y fondos temáticos dentro del sector de la Inteligencia Artificial y tecnología:
 
 * **NVDA**: NVIDIA Corporation
 * **MSFT**: Microsoft Corporation
@@ -35,7 +35,7 @@ Los datos históricos de precios y volumen para los tickers seleccionados fueron
 
 ## Limpieza y Preprocesamiento de Datos
 
-Una vez descargados los datos brutos (en `data/financial_data.csv`), se realizó un proceso de limpieza inicial para asegurar su calidad y prepararlos para el análisis. Estos pasos se documentaron y ejecutaron en el notebook **`notebooks/01_data_acquisition_cleaning_exploration.ipynb`**.
+Una vez descargados los datos brutos (en `data/financial_data.csv`), se realiza un proceso de limpieza inicial para asegurar su calidad y prepararlos para el análisis. Estos pasos se documentaron y ejecutaron en el notebook **`notebooks/01_data_acquisition_cleaning_exploration.ipynb`**.
 
 1.  **Manejo de Valores Nulos (NaN):** Se identificaron y manejaron los valores nulos, especialmente aquellos presentes al inicio de la serie temporal de algunos activos (como BOTZ y ARKQ, que comenzaron a cotizar después de la fecha de inicio del rango principal). Se utilizó la técnica **forward fill (`ffill()`)** para rellenar los valores faltantes dentro de cada serie temporal, entendiendo que los `NaN` iniciales representan períodos donde el activo no existía.
 2.  **Almacenamiento de Datos Procesados:** Tras la limpieza, los datos procesados y listos para el análisis fueron guardados en un archivo en formato **Parquet** (`ai_stocks_historical_data_cleaned.parquet`), ubicado en la subcarpeta **`data/processed/`**. Este formato es eficiente para el almacenamiento y carga de DataFrames de Pandas en análisis posteriores.
@@ -51,8 +51,6 @@ Esta es la sección principal donde se presentan los resultados y hallazgos del 
 ### Estadísticas Descriptivas Básicas
 
 Se calcularon estadísticas descriptivas básicas (media, desviación estándar, mínimo, máximo, cuartiles, mediana) para las columnas clave (precio de cierre, volumen). Esto proporcionó una primera visión cuantitativa de la distribución, el rango y las características generales de los datos para cada activo en el período 2015-2023/2025.
-
-* *(Opcional: Puedes pegar aquí una tabla resumen de `.describe()` o de medias/medianas/stds usando formato Markdown para tablas)*
 
     ![Gráfico de Series de Tiempo de Precios](results/plots/price_time_series.png) ![Gráfico de Series de Tiempo de Volumen](results/plots/volume_time_series.png) ### Análisis de Rendimientos
 
@@ -73,7 +71,9 @@ Se calculó la matriz de correlación de los rendimientos diarios para entender 
 
 * El análisis cuantitativo (matriz numérica) y las visualizaciones (heatmap y pair plot) revelaron un **alto grado general de correlación positiva** entre la mayoría de los tickers seleccionados dentro de este nicho del sector IA. Pares como MSFT y GOOGL, así como los ETFs temáticos (que invierten en empresas similares), muestran una fuerte tendencia a que sus rendimientos diarios se muevan en la misma dirección.
 
-    ![Heatmap de Correlación](results/plots/correlation_heatmap.png) ![Pair Plot de Correlación](results/plots/correlation_pairplot.png) * **Reflexión sobre la Diversificación:** Este hallazgo de alta correlación positiva es una **observación crítica** para la gestión de un portafolio. Si bien estos activos representan una temática de inversión interesante (IA), su fuerte tendencia a moverse juntos implica que **ofrecen beneficios de diversificación limitados entre sí**. Si el sector de la IA en general experimenta un evento negativo (sea tecnológico, regulatorio o macroeconómico), es probable que la mayoría o todos estos activos en la selección caigan simultáneamente debido a su interdependencia. Para lograr una diversificación efectiva y reducir el riesgo general de un portafolio, sería fundamental complementar esta selección de activos de IA con inversiones en **sectores, geografías o clases de activos que muestren una correlación baja o negativa** con este grupo. El análisis de correlación subraya la importancia de mirar más allá de la temática de inversión al construir un portafolio robusto.
+    ![Heatmap de Correlación](results/plots/correlation_heatmap.png) ![Pair Plot de Correlación](results/plots/correlation_pairplot.png) * **Reflexión sobre la Diversificación:** Este hallazgo de alta correlación positiva es una **observación crítica** para la gestión de un portafolio, ya que si bien estos activos representan una temática de inversión interesante, su fuerte tendencia a moverse juntos implica que **ofrecen beneficios de diversificación limitados entre sí**. Si el sector de la IA en general experimenta un evento negativo (sea tecnológico, regulatorio o macroeconómico), es probable que la mayoría o todos estos activos en la selección caigan simultáneamente debido a su interdependencia. 
+    
+    Para mejorar la diversificación y que esta sea efectiva, sería fundamental complementar esta selección de activos de IA con inversiones en **sectores, geografías o clases de activos que muestren una correlación baja o negativa** con este grupo. El análisis de correlación subraya la importancia de mirar más allá de la temática de inversión al construir un portafolio robusto.
 
 ---
 
