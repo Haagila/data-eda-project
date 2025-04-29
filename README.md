@@ -2,13 +2,13 @@
 
 ## Resumen del Proyecto
 
-El objetivo de este proyecto es realizar un Análisis Exploratorio de Datos (EDA) detallado sobre un conjunto selecto de activos financieros relacionados con el sector de la **Inteligencia Artificial (IA)** y la tecnología. Considero que mediante el análisis de datos históricos de precios y volumen, utilizando herramientas estadísticas y de visualización en Python, se puede identificar patrones clave, tendencias, características de riesgo (volatilidad) y las relaciones (correlaciones) entre estos activos. Lo cual es una introducción interesante para este mercado. 
+El objetivo de este proyecto es realizar un Análisis Exploratorio de Datos (EDA) detallado sobre un conjunto selecto de activos financieros relacionados con el sector de la **Inteligencia Artificial (IA)** y la tecnología. Considero que mediante el análisis de datos históricos de precios y volumen, utilizando herramientas estadísticas y de visualización en Python, se puede identificar patrones clave, tendencias, características de riesgo (volatilidad) y las relaciones (correlaciones) entre estos activos. Lo cual es una introducción interesante para este mercado.
 
 ---
 
 ## Adquisición de Datos
 
-Los datos se obtuvieron desde **Yahoo Finance**, los cuales se pueden derivar mediante la librería *yfinance* hacia distintos scripts de Python, en donde se transforman a diferentes formas de información. 
+Los datos se obtuvieron desde **Yahoo Finance**, los cuales se pueden derivar mediante la librería *yfinance* hacia distintos scripts de Python, en donde se transforman a diferentes formas de información.
 
 ### Activos Seleccionados
 
@@ -52,27 +52,37 @@ Esta es la sección principal donde se presentan los resultados y hallazgos del 
 
 Se calcularon estadísticas descriptivas básicas (media, desviación estándar, mínimo, máximo, cuartiles, mediana) para las columnas clave (precio de cierre, volumen). Esto proporcionó una primera visión cuantitativa de la distribución, el rango y las características generales de los datos para cada activo en el período 2015-2023/2025.
 
-    ![Gráfico de Series de Tiempo de Precios](results/plots/price_time_series.png) ![Gráfico de Series de Tiempo de Volumen](results/plots/volume_time_series.png) ### Análisis de Rendimientos
+![Gráfico de Series de Tiempo de Precios](results/plots/price_time_series.png)
+![Gráfico de Series de Tiempo de Volumen](results/plots/volume_time_series.png)
 
-Se calcularon los rendimientos diarios (porcentuales y logarítmicos) para analizar los cambios de precio relativos.
+### Análisis de Rendimientos
+
+Se calculó los rendimientos diarios (porcentuales y logarítmicos) para analizar los cambios de precio relativos.
 
 * La distribución de los rendimientos diarios fue visualizada mediante **histogramas**. Estos mostraron que, para la mayoría de los días, las fluctuaciones de precio son muy pequeñas y se concentran cerca de cero. No obstante, las "colas" de la distribución (valores alejados del centro) indican la presencia de días con movimientos porcentuales significativos, aunque menos frecuentes.
 
-    ![Histograma de Rendimientos Diarios](results/plots/returns_histogram.png) ### Análisis de Volatilidad
+![Histograma de Rendimientos Diarios](results/plots/returns_histogram.png)
+
+### Análisis de Volatilidad
 
 La volatilidad, como medida clave de riesgo, fue calculada como la desviación estándar de los rendimientos diarios y anualizada (asumiendo 252 días de trading/año).
 
 * Se observó que activos individuales como NVDA presentaron históricamente una volatilidad anualizada notablemente mayor en comparación con ETFs más diversificados (BOTZ, ARKQ) o empresas de mayor capitalización y menor volatilidad histórica (MSFT, GOOGL). Esto refleja el mayor riesgo asociado a las fluctuaciones de precio de un activo de alto crecimiento y muy expuesto a las dinámicas del sector.
 * La distribución y comparación visual de la volatilidad entre activos fue clara en el **Box Plot** de los rendimientos diarios, mostrando la dispersión de los datos y la extensión de los valores atípicos (días de movimientos extremos).
 
-    ![Box Plot de Volatilidad](results/plots/volatility_boxplot.png) ### Análisis de Correlación: Una Perspectiva Crítica para la Diversificación
+![Box Plot de Volatilidad](results/plots/volatility_boxplot.png)
+
+### Análisis de Correlación: Una Perspectiva Crítica para la Diversificación
 
 Se calculó la matriz de correlación de los rendimientos diarios para entender la interdependencia entre los activos.
 
 * El análisis cuantitativo (matriz numérica) y las visualizaciones (heatmap y pair plot) revelaron un **alto grado general de correlación positiva** entre la mayoría de los tickers seleccionados dentro de este nicho del sector IA. Pares como MSFT y GOOGL, así como los ETFs temáticos (que invierten en empresas similares), muestran una fuerte tendencia a que sus rendimientos diarios se muevan en la misma dirección.
 
-    ![Heatmap de Correlación](results/plots/correlation_heatmap.png) ![Pair Plot de Correlación](results/plots/correlation_pairplot.png) * **Reflexión sobre la Diversificación:** Este hallazgo de alta correlación positiva es una **observación crítica** para la gestión de un portafolio, ya que si bien estos activos representan una temática de inversión interesante, su fuerte tendencia a moverse juntos implica que **ofrecen beneficios de diversificación limitados entre sí**. Si el sector de la IA en general experimenta un evento negativo (sea tecnológico, regulatorio o macroeconómico), es probable que la mayoría o todos estos activos en la selección caigan simultáneamente debido a su interdependencia. 
-    
+![Heatmap de Correlación](results/plots/correlation_heatmap.png)
+*(Nota: Aunque se realizó el análisis del Pair Plot para visualizar la correlación entre todos los pares de activos, solo se incluye el Heatmap en este README por brevedad. El Pair Plot completo se puede ver en el notebook de EDA.)*
+
+* **Reflexión sobre la Diversificación:** Este hallazgo de alta correlación positiva es una **observación crítica** para la gestión de un portafolio, ya que si bien estos activos representan una temática de inversión interesante, su fuerte tendencia a moverse juntos implica que **ofrecen beneficios de diversificación limitados entre sí**. Si el sector de la IA en general experimenta un evento negativo (sea tecnológico, regulatorio o macroeconómico), es probable que la mayoría o todos estos activos en la selección caigan simultáneamente debido a su interdependencia.
+
     Para mejorar la diversificación y que esta sea efectiva, sería fundamental complementar esta selección de activos de IA con inversiones en **sectores, geografías o clases de activos que muestren una correlación baja o negativa** con este grupo. El análisis de correlación subraya la importancia de mirar más allá de la temática de inversión al construir un portafolio robusto.
 
 ---
